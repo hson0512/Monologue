@@ -99,7 +99,7 @@ Generate an internal monologue of EXACTLY ${lines} numbered lines where the two 
           ],
         });
 
-        const monologue = response.content[0].text;
+        const monologue = response.content[0].type === 'text' ? response.content[0].text : 'Error: Invalid response format';
 
         return {
           content: [

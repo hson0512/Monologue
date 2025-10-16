@@ -1,5 +1,5 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
-import { createMCPServer } from "~/lib/mcp-server";
+import { createMCPServer } from "../lib/mcp-server.js";
 import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
 
 // SSE (Server Sent Events) keeps an open connection between Claude and your server
@@ -27,10 +27,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   const server = createMCPServer();
 
-  const transport = new SSEServerTransport({
-    endpoint: "/api/mcp",
-    requestHeaders: Object.fromEntries(request.headers.entries()),
-    responseHeaders: Object.fromEntries(responseHeaders.entries()),
+  const transport = new SSEServerTransport("/api/mcp", {
+    headers: Object.fromEntries(request.headers.entries()),
   });
 
   const stream = new ReadableStream({

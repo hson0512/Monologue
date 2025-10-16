@@ -11,4 +11,7 @@ export default defineConfig({
       },
     }),
   ],
+  ssr: {
+    noExternal: ["@modelcontextprotocol/sdk", "@anthropic-ai/sdk"],
+  },
 });
